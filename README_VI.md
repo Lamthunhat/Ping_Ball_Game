@@ -78,3 +78,13 @@ src/main/java/
    ```bash
    java -cp target/classes main.Main
    ```
+
+---
+
+## 📥 Hướng dẫn tải & chơi Game (Bản build sẵn .exe)
+
+Dành cho những ai muốn chơi game ngay mà không cần cài đặt môi trường lập trình JDK hay tự biên dịch code:
+1. Đi tới mục **Releases** ở phía bên phải của trang dự án này trên GitHub.
+2. Tải về file `PingBallGame.zip` ở phiên bản mới nhất.
+3. Giải nén file `.zip` vừa tải về trên máy tính của bạn.
+4. Mở thư mục đã giải nén và nhấp đúp (double-click) vào file **`PingBallGame.exe`** để bắt đầu chơi game! (Máy tính của bạn hoàn toàn không cần cài đặt sẵn Java).

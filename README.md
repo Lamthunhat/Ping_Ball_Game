@@ -73,3 +73,13 @@ src/main/java/
    ```bash
    java -cp target/classes main.Main
    ```
+
+---
+
+## 📥 How to Download & Play (Pre-built Executable)
+
+For players who just want to play the game without setting up JDK or compiling the source code:
+1. Go to the **Releases** section on the right side of this repository page.
+2. Download the latest version of `PingBallGame.zip`.
+3. Extract the downloaded `.zip` file on your computer.
+4. Open the extracted folder and double-click `PingBallGame.exe` to start playing! (No Java installation required).
