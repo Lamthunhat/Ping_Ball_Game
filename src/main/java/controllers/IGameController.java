@@ -1,24 +1,24 @@
 package controllers;
 
 /**
- * Giao diện IGameController định nghĩa các phương thức điều khiển game.
+ * IGameController interface defines the game control methods.
  */
 public interface IGameController {
-    void updateGame(); // Cập nhật trạng thái game
+    void updateGame(); // Update game state
 
-    void movePaddleLeft(); // Di chuyển thanh trượt sang trái
+    void movePaddleLeft(); // Move paddle left
 
-    void movePaddleRight(); // Di chuyển thanh trượt sang phải
+    void movePaddleRight(); // Move paddle right
 
-    void startGame(); // Bắt đầu game mới
+    void startGame(); // Start new game
 
-    void resetGame(); // Đặt lại game
+    void resetGame(); // Reset game
 
     void pauseGame();
 
     void resumeGame();
 
-    void exitGame(); // Thoát game
+    void exitGame(); // Exit game
 
-    void setGamePanel(views.GamePanel gamePanel); // Đặt panel giao diện
+    void setGamePanel(views.GamePanel gamePanel); // Set interface panel
 }

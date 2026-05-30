@@ -13,7 +13,7 @@ public class GameWindow extends JFrame {
     private Timer timer;
 
     /**
-     * Khởi tạo cửa sổ game.
+     * Initializes the game window.
      */
     public GameWindow() {
         setTitle("DON'T DROP IT");
@@ -21,12 +21,12 @@ public class GameWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(true);
-        SoundPlayer.playBackgroundMusic("/opensound.wav"); // Phát nhạc nền ngay khi khởi tạo
+        SoundPlayer.playBackgroundMusic("/opensound.wav"); // Play background music upon initialization
         showMenu();
     }
 
     /**
-     * Hiển thị menu chính.
+     * Displays the main menu.
      */
     public void showMenu() {
         extracted();
@@ -46,7 +46,7 @@ public class GameWindow extends JFrame {
     }
 
     /**
-     * Bắt đầu game mới.
+     * Starts a new game.
      */
     private void startGame() {
         Ball ball = new Ball(GameConstants.GAME_WIDTH / 2, GameConstants.GAME_HEIGHT / 2);
@@ -62,7 +62,7 @@ public class GameWindow extends JFrame {
         revalidate();
         gamePanel.requestFocusInWindow();
 
-        // Tạo Timer để cập nhật game
+        // Create Timer to update the game
         timer = new Timer(16, e -> {
             if (!gameState.isGameOver() && !gameState.isPaused()) {
                 controller.updateGame();

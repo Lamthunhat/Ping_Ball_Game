@@ -6,8 +6,8 @@ import views.GamePanel;
 import utils.SoundPlayer;
 
 /**
- * Lớp GameController điều khiển logic chính của game, bao gồm di chuyển, va
- * chạm, và trạng thái game.
+ * The GameController class controls the main game logic, including movement,
+ * collision, and game state.
  */
 public class GameController implements IGameController {
     private Ball ball;
@@ -17,12 +17,12 @@ public class GameController implements IGameController {
     private int lives = 3;
 
     /**
-     * Khởi tạo GameController với các đối tượng game.
+     * Initializes GameController with game objects.
      * 
-     * @param ball      Quả bóng
-     * @param paddle    Thanh trượt
-     * @param gameState Trạng thái game
-     * @param gamePanel Panel giao diện game
+     * @param ball      The ball
+     * @param paddle    The paddle
+     * @param gameState The game state
+     * @param gamePanel The game interface panel
      */
     public GameController(Ball ball, Paddle paddle, GameState gameState, GamePanel gamePanel) {
         this.ball = ball;
@@ -32,9 +32,9 @@ public class GameController implements IGameController {
     }
 
     /**
-     * Đặt panel giao diện game.
+     * Sets the game interface panel.
      * 
-     * @param gamePanel Panel giao diện game
+     * @param gamePanel The game interface panel
      */
     @Override
     public void setGamePanel(GamePanel gamePanel) {
@@ -45,15 +45,15 @@ public class GameController implements IGameController {
     }
 
     /**
-     * Cập nhật trạng thái game, bao gồm di chuyển bóng và kiểm tra va chạm.
+     * Updates game state, including ball movement and collision checks.
      */
     @Override
     public void updateGame() {
         if (!gameState.isGameOver() && !gameState.isPaused()) {
-            // Di chuyển bóng và kiểm tra biên
+            // Move ball and check boundaries
             ball.move(GameConstants.GAME_WIDTH, GameConstants.GAME_HEIGHT);
 
-            // Kiểm tra va chạm với paddle
+            // Check collision with paddle
             if (ball.getBounds().intersects(paddle.getBounds())) {
 
                 ball.setY(paddle.getY() - ball.getSize());
@@ -74,7 +74,7 @@ public class GameController implements IGameController {
                 SoundPlayer.playSound("/hit.wav");
             }
 
-            // Kiểm tra game over
+            // Check game over
             if (ball.getY() + ball.getSize() >= GameConstants.GAME_HEIGHT) {
                 lives--;
                 ball.reset();
@@ -85,14 +85,14 @@ public class GameController implements IGameController {
                     gameState.setGameOver(true);
                     gameState.checkHighScore();
                     SoundPlayer.playSound("/game_over.wav");
-                    SoundPlayer.stopBackgroundMusic(); // Dừng nhạc nền khi game over
+                    SoundPlayer.stopBackgroundMusic(); // Stop background music when game over
                 }
             }
         }
     }
 
     /**
-     * Di chuyển thanh trượt sang trái.
+     * Moves the paddle to the left.
      */
     @Override
     public void movePaddleLeft() {
@@ -109,7 +109,7 @@ public class GameController implements IGameController {
     }
 
     /**
-     * Bắt đầu game mới.
+     * Starts a new game.
      */
     @Override
     public void startGame() {
@@ -118,11 +118,11 @@ public class GameController implements IGameController {
         ball.reset();
         paddle.reset();
         lives = 3;
-        // Không gọi playBackgroundMusic vì nhạc nền đã phát từ GameWindow
+        // Do not call playBackgroundMusic as background music is already playing from GameWindow
     }
 
     /**
-     * Đặt lại game để quay lại menu.
+     * Resets the game to return to the menu.
      */
     @Override
     public void resetGame() {
@@ -131,18 +131,18 @@ public class GameController implements IGameController {
         ball.reset();
         paddle.reset();
         gamePanel.refresh();
-        SoundPlayer.stopBackgroundMusic(); // Dừng nhạc nền khi quay lại menu
+        SoundPlayer.stopBackgroundMusic(); // Stop background music when returning to menu
     }
 
     /**
-     * Thoát game sau khi xác nhận.
+     * Exits the game after confirmation.
      */
     @Override
     public void exitGame() {
         int response = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn thoát game?", "Xác nhận thoát",
                 JOptionPane.YES_NO_OPTION);
         if (response == JOptionPane.YES_OPTION) {
-            SoundPlayer.stopBackgroundMusic(); // Dừng nhạc nền khi thoát
+            SoundPlayer.stopBackgroundMusic(); // Stop background music when exiting
             System.exit(0);
         }
     }
@@ -152,7 +152,7 @@ public class GameController implements IGameController {
         if (!gameState.isPaused()) {
             gameState.setPaused(true);
             gamePanel.refresh();
-            SoundPlayer.stopBackgroundMusic(); // Dừng nhạc nền khi tạm dừng
+            SoundPlayer.stopBackgroundMusic(); // Stop background music when paused
         }
     }
 
@@ -161,7 +161,7 @@ public class GameController implements IGameController {
         if (gameState.isPaused()) {
             gameState.setPaused(false);
             gamePanel.refresh();
-            SoundPlayer.playBackgroundMusic("/opensound.wav"); // Tiếp tục nhạc nền nếu âm thanh bật
+            SoundPlayer.playBackgroundMusic("/opensound.wav"); // Resume background music if sound is enabled
         }
     }
 

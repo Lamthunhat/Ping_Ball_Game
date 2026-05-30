@@ -29,14 +29,14 @@ public class MenuPanel extends JPanel {
 
         startButton = createButton("START GAME", new Color(95, 195, 124));
         instructionButton = createButton("INSTRUCTIONS");
-        // Khởi tạo nút Sound với nhãn dựa trên trạng thái âm thanh
+        // Initialize Sound button with label based on sound status
         soundButton = createButton(SoundPlayer.isSoundEnabled() ? "SOUND: ON" : "SOUND: OFF");
         infoButton = createButton("ABOUT");
         exitButton = createButton("EXIT", new Color(231, 76, 60));
 
         buttons = new JButton[] { startButton, instructionButton, soundButton, infoButton, exitButton };
 
-        // Thêm ActionListener cho nút Sound
+        // Add ActionListener for Sound button
         soundButton.addActionListener(e -> {
             SoundPlayer.toggleSound();
             soundButton.setText(SoundPlayer.isSoundEnabled() ? "SOUND: ON" : "SOUND: OFF");
@@ -47,7 +47,7 @@ public class MenuPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        // background
+        // Background
         GradientPaint backgroundGradient = new GradientPaint(
                 0, 0, new Color(44, 62, 80),
                 0, getHeight(), new Color(52, 152, 219));

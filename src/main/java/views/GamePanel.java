@@ -14,7 +14,7 @@ import models.*;
 
 public class GamePanel extends JPanel {
     private final Ball ball;
-    private BufferedImage ballImage, paddleImage; // chứa ảnh sprite của quả lựu đạn và người chơi
+    private BufferedImage ballImage, paddleImage; // Contains sprites for the grenade (ball) and player (paddle)
 
     private BufferedImage spriteImg;
 
@@ -24,12 +24,12 @@ public class GamePanel extends JPanel {
     private final GameWindow gameWindow;
 
     /**
-     * Khởi tạo GamePanel với các đối tượng game.
+     * Initializes GamePanel with game objects.
      *
-     * @param ball       Quả bóng
-     * @param paddle     Thanh trượt
-     * @param gameState  Trạng thái game
-     * @param controller Bộ điều khiển game
+     * @param ball       The ball
+     * @param paddle     The paddle
+     * @param gameState  The game state
+     * @param controller The game controller
      */
     public GamePanel(Ball ball, Paddle paddle, GameState gameState, GameController controller, GameWindow gameWindow) {
         this.ball = ball;
@@ -55,7 +55,7 @@ public class GamePanel extends JPanel {
             e.printStackTrace();
         }
 
-        // Thêm FocusListener để lấy lại focus khi mất
+        // Add FocusListener to request focus back when lost
         addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
@@ -63,7 +63,7 @@ public class GamePanel extends JPanel {
             }
         });
 
-        // Thêm sự kiện bàn phím
+        // Add keyboard event listener
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -80,8 +80,8 @@ public class GamePanel extends JPanel {
                 } else if (key == KeyEvent.VK_SPACE && gameState.isGameOver()) {
                     controller.startGame();
                 } else if (key == KeyEvent.VK_ESCAPE && gameState.isGameOver()) {
-                    controller.resetGame(); // Đặt lại trạng thái game
-                    gameWindow.showMenu(); // Trở về menu
+                    controller.resetGame(); // Reset game state
+                    gameWindow.showMenu(); // Return to main menu
                 }
             }
         });
@@ -95,27 +95,27 @@ public class GamePanel extends JPanel {
         int realWidth = getWidth();
         int realHeight = getHeight();
 
-        // background
+        // Background
         GradientPaint backgroundGradient = new GradientPaint(
                 0, 0, new Color(44, 62, 80),
                 0, getHeight(), new Color(52, 152, 219));
         g2d.setPaint(backgroundGradient);
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
-        // Tính tỉ lệ theo kích thước gốc
+        // Calculate ratio based on original size
         double scaleX = realWidth / (double) GameConstants.GAME_WIDTH;
         double scaleY = realHeight / (double) GameConstants.GAME_HEIGHT;
 
-        // scale khi vẽ quả bóng và paddle giúp chúng không bị méo
+        // Scale when drawing ball and paddle to prevent distortion
         double scale = Math.min(scaleX, scaleY);
 
-        // Áp dụng tỉ lệ khi vẽ paddle
+        // Apply scaling when drawing paddle
         g2d.drawImage(paddleImage, (int) (paddle.getX() * scaleX),
                 (int) (paddle.getY() * scaleY),
                 (int) (paddle.getWidth() * scale),
                 (int) (paddle.getHeight() * scale * 2), null);
 
-        // Vẽ lựu đạn
+        // Draw grenade (ball)
         g2d.drawImage(ballImage,
                 (int) (ball.getX() * scaleX),
                 (int) (ball.getY() * scaleY),
@@ -123,7 +123,7 @@ public class GamePanel extends JPanel {
                 (int) (ball.getSize() * scale),
                 null);
 
-        // Vẽ điểm
+        // Draw score
         g2d.setColor(Color.green);
         g2d.setFont(new Font("Arial", Font.PLAIN, (int) (15 * scale)));
         g2d.drawString("Score: " + gameState.getScore(), (int) (10 * scaleX), (int) (25 * scaleY));
@@ -141,7 +141,7 @@ public class GamePanel extends JPanel {
             g2d.drawString("Press ESC to return to menu", (int) (200 * scaleX), (int) (290 * scaleY));
         }
 
-        // Tạm dừng
+        // Pause
         if (gameState.isPaused() && !gameState.isGameOver()) {
             g2d.setColor(Color.RED);
             g2d.setFont(new Font("Arial", Font.BOLD, (int) (40 * scaleY)));
@@ -154,7 +154,7 @@ public class GamePanel extends JPanel {
     }
 
     /**
-     * Cập nhật giao diện game.
+     * Update game interface.
      */
     public void refresh() {
         repaint();

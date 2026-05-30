@@ -5,13 +5,13 @@ import java.io.BufferedInputStream;
 import java.io.InputStream;
 
 public class SoundPlayer {
-    private static Clip backgroundClip; // Lưu Clip của nhạc nền để điều khiển
-    private static boolean isSoundEnabled = true; // Trạng thái âm thanh (mặc định bật)
+    private static Clip backgroundClip; // Stores background music Clip for control
+    private static boolean isSoundEnabled = true; // Sound status (enabled by default)
 
-    // Phát âm thanh không lặp (dùng cho hit.wav, game_over.wav)
+    // Play non-looping sound (used for hit.wav, game_over.wav)
     public static void playSound(String path) {
         if (!isSoundEnabled) {
-            return; // Không phát nếu âm thanh bị tắt
+            return; // Do not play if sound is disabled
         }
         try {
             InputStream audioSrc = SoundPlayer.class.getResourceAsStream(path);
@@ -36,10 +36,10 @@ public class SoundPlayer {
         }
     }
 
-    // Phát nhạc nền lặp lại
+    // Play looping background music
     public static void playBackgroundMusic(String path) {
         if (!isSoundEnabled) {
-            return; // Không phát nếu âm thanh bị tắt
+            return; // Do not play if sound is disabled
         }
         try {
             InputStream audioSrc = SoundPlayer.class.getResourceAsStream(path);
@@ -51,7 +51,7 @@ public class SoundPlayer {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedStream);
             backgroundClip = AudioSystem.getClip();
             backgroundClip.open(audioStream);
-            backgroundClip.loop(Clip.LOOP_CONTINUOUSLY); // Lặp vô hạn
+            backgroundClip.loop(Clip.LOOP_CONTINUOUSLY); // Infinite loop
         } catch (UnsupportedAudioFileException e) {
             System.err.println("Định dạng âm thanh không được hỗ trợ: " + path);
             e.printStackTrace();
@@ -64,7 +64,7 @@ public class SoundPlayer {
         }
     }
 
-    // Dừng nhạc nền
+    // Stop background music
     public static void stopBackgroundMusic() {
         if (backgroundClip != null && backgroundClip.isRunning()) {
             backgroundClip.stop();
@@ -73,18 +73,18 @@ public class SoundPlayer {
         }
     }
 
-    // Bật/tắt âm thanh
+    // Toggle sound on/off
     public static void toggleSound() {
         isSoundEnabled = !isSoundEnabled;
         if (!isSoundEnabled) {
-            stopBackgroundMusic(); // Dừng nhạc nền nếu tắt âm thanh
+            stopBackgroundMusic(); // Stop background music if sound is turned off
         } else {
-            playBackgroundMusic("/opensound.wav"); // Phát nhạc nền nếu bật âm thanh
+            playBackgroundMusic("/opensound.wav"); // Play background music if sound is turned on
         }
         System.out.println("Trạng thái âm thanh: " + (isSoundEnabled ? "ON" : "OFF"));
     }
 
-    // Lấy trạng thái âm thanh
+    // Get sound status
     public static boolean isSoundEnabled() {
         return isSoundEnabled;
     }

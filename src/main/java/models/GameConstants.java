@@ -1,6 +1,6 @@
 package models;
 
-// Hang so co dinh cho game
+// Fixed constants for the game
 
 public class GameConstants {
     public static final int GAME_WIDTH = 650;

@@ -3,9 +3,9 @@ package models;
 import java.awt.Rectangle;
 
 public class Ball {
-    private double x, y; // Toa do
-    private double dx, dy; // Toc do
-    private int size; // Kich thuoc
+    private double x, y; // Coordinates
+    private double dx, dy; // Speed / Velocity
+    private int size; // Size
 
     public Ball(int x, int y) {
         this.x = x;
@@ -18,28 +18,28 @@ public class Ball {
     public void move(int panelWidth, int panelHeight) {
         x += dx;
         y += dy;
-        // Kiem tra va cham voi bien trai/phai
+        // Check collision with left/right borders
         if (x <= 0 || x + size >= panelWidth) {
             bounceHorizontal();
             x = Math.max(0, Math.min(x, panelWidth - size));
         }
-        // Kiem tra va cham voi bien tre
+        // Check collision with top border
         if (y <= 0) {
             bounceVertical();
             y = 0;
         }
-        // Kiem tra neu bong ra ngoai bien duoi (mat bong)
+        // Check if the ball goes out of the bottom border (lose ball)
         if (y + size >= panelHeight) {
             y = panelHeight - size;
         }
     }
 
-    // Ham tinh huong va cham voi bien doc
+    // Reverse horizontal direction upon border collision
     public void bounceHorizontal() {
         dx = -dx;
     }
 
-    // Ham tinh huong va cham voi bien ngang
+    // Reverse vertical direction upon border collision
     public void bounceVertical() {
         dy = -dy;
     }
